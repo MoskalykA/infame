@@ -1,5 +1,7 @@
 export default {
-  requiredIdentifier: "discord",
+  identifier: {
+    name: "discord",
+  },
 
   character: {
     enabled: true,

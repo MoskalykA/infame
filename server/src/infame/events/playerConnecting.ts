@@ -11,16 +11,32 @@ AddEventHandler(
       handover: any;
       presentCard: any;
       update: any;
-    },
-    source: string
+    }
   ) => {
-    if (env.character.enabled) {
-      console.log(playerName);
-      if (env.character.selectionBeforeConnection) {
-        setKickReason("setKickReason");
-      } else {
-        setKickReason("test");
-      }
+    deferrals.defer();
+
+    const identifiers = getPlayerIdentifiers(source);
+    if (identifiers.includes(env.identifier.name)) {
+      console.log("perfect");
+    } else {
+      deferrals.presentCard({
+        type: "AdaptiveCard",
+        body: [
+          {
+            type: "TextBlock",
+            size: "Medium",
+            weight: "Bolder",
+            text: "Error during connection",
+          },
+          {
+            type: "TextBlock",
+            text: `You do not have an open ${env.identifier.name} so you are not able to join the server.`,
+            wrap: true,
+          },
+        ],
+        $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+        version: "1.5",
+      });
     }
   }
 );
