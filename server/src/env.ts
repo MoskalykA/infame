@@ -5,6 +5,5 @@ export default {
 
   character: {
     enabled: true,
-    selectionBeforeConnection: true,
   },
 };
