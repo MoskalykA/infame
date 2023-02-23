@@ -5,7 +5,10 @@ module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    main: ["./src/infame/nets/playerJoining.ts"],
+    main: [
+      "./src/infame/nets/playerJoining.ts",
+      "./src/infame/nets/characters/setData.ts",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "./build"),

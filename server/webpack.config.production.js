@@ -9,6 +9,9 @@ module.exports = {
       "./src/env.ts",
       "./src/infame/events/playerConnecting.ts",
       "./src/infame/events/playerJoining.ts",
+      "./src/infame/nets/characters/selectCharacter.ts",
+      "./src/infame/utils/characters/selectCharacter.ts",
+      "./src/infame/utils/characters/characterData.ts",
     ],
   },
   output: {
