@@ -21,7 +21,7 @@ AddEventHandler(
         identifier.startsWith(env.identifier.name)
       ) > -1
     ) {
-      deferrals.defer();
+      deferrals.done();
     } else {
       deferrals.done(
         `You do not have an open ${env.identifier.name} so you are not able to join the server.`
