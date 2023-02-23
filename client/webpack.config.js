@@ -5,7 +5,7 @@ module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    main: ["./src/index.ts"],
+    main: ["./src/infame/nets/playerJoining.ts"],
   },
   output: {
     path: path.resolve(__dirname, "./build"),

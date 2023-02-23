@@ -5,7 +5,11 @@ module.exports = {
   mode: "development",
   devtool: "inline-source-map",
   entry: {
-    main: ["./src/env.ts", "./src/infame/events/playerConnecting.ts"],
+    main: [
+      "./src/env.ts",
+      "./src/infame/events/playerConnecting.ts",
+      "./src/infame/events/playerJoining.ts",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "./build"),
