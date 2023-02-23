@@ -16,7 +16,11 @@ AddEventHandler(
     deferrals.defer();
 
     const identifiers = getPlayerIdentifiers(source);
-    if (identifiers.includes(env.identifier.name)) {
+    if (
+      identifiers.findIndex((identifier: string) =>
+        identifier.startsWith(env.identifier.name)
+      ) > -1
+    ) {
       console.log("perfect");
     } else {
       deferrals.presentCard({
