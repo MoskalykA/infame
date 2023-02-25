@@ -8,6 +8,8 @@ module.exports = {
     main: [
       "./src/infame/nets/playerJoining.ts",
       "./src/infame/nets/characters/setData.ts",
+      "./src/infame/utils/interface.ts",
+      "./src/infame/try.ts",
     ],
   },
   output: {

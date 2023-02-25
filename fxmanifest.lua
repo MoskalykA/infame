@@ -10,3 +10,13 @@ version '0.0.1'
 
 client_script 'client/build/bundle.unoptimized.js'
 server_script 'server/build/bundle.unoptimized.js'
+
+-- files {
+--     'interface/dist/index.html',
+--     'interface/dist/assets/index-89cd7807.js',
+--     'interface/dist/assets/index-752ce701.css'
+-- }
+-- 
+-- ui_page 'interface/dist/index.html'
+
+ui_page 'http://localhost:5173/'
