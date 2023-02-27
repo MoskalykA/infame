@@ -1,32 +1,39 @@
 import { FC, useState, ReactNode } from "react";
 import receiveNuiEvent from "@/providers/receiveNuiEvent";
-import messageData from "@/types/messageData";
+import enableCursor from "@/providers/enableCursor";
+import sendNuiEventWithoutNet from "@/providers/sendNuiEventWithoutNet";
 
-const Visibility: FC<{
-  moduleName: string;
+interface VisibilityProps {
   children: any | ReactNode;
-}> = ({ moduleName, children }) => {
+  moduleName: string;
+  cursorWhen?: boolean;
+}
+
+const Visibility: FC<VisibilityProps> = ({
+  children,
+  moduleName,
+  cursorWhen,
+}) => {
   const [visible, setVisible] = useState(false);
   receiveNuiEvent(moduleName, "setVisible", (data: { visible: boolean }) => {
     setVisible(data.visible);
 
-    const message: messageData = new Event("message");
-    message.data = {
-      moduleName: moduleName,
-      functionName: "whenVisibleChange",
-      argsList: {
-        visible: data.visible,
-      },
-    };
+    if (cursorWhen) {
+      enableCursor(moduleName);
+    }
 
-    window.dispatchEvent(message);
+    setTimeout(() => {
+      sendNuiEventWithoutNet(moduleName, "isReady", data);
+    }, 100);
   });
 
-  return (
-    <div id={moduleName} style={{ position: "fixed" }}>
-      {visible && <>{children}</>}
-    </div>
-  );
+  if (visible) {
+    return children;
+  }
 };
 
 export default Visibility;
+
+Visibility.defaultProps = {
+  cursorWhen: false,
+};

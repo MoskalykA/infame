@@ -1,9 +1,10 @@
 import sendNuiEventWithoutNet from "@/providers/sendNuiEventWithoutNet";
 
-const closeNui = (moduleName: string) => {
+const openNui = (moduleName: string, args: Object = {}) => {
   sendNuiEventWithoutNet(moduleName, "setVisible", {
-    visible: false,
+    ...args,
+    visible: true,
   });
 };
 
-export default closeNui;
+export default openNui;

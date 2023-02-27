@@ -1,42 +1,54 @@
-import { useState } from "react";
-import Visibility from "@/components/visibility";
-import closeNui from "@/providers/closeNui";
-import disableCursor from "@/providers/disableCursor";
-import enableCursor from "@/providers/enableCursor";
-import sendNuiEvent from "@/providers/sendNuiEvent";
-import whenVisibleChange from "@/providers/whenVisibleChange";
+import { toast, Toaster } from "react-hot-toast";
+import { NotificationType } from "@/types/notificationType";
+import Visibility from "@/components/Visibility";
+import IndexCharacter from "@/pages/Character/Index";
+import ListCharacter from "@/pages/Character/List";
+import CreateCharacter from "@/pages/Character/Create";
+import receiveNuiEvent from "@/providers/receiveNuiEvent";
 
 function App() {
-  const [message, setMessage] = useState<string>("");
-  whenVisibleChange("test", (isVisible: boolean) => {
-    if (isVisible) {
-      enableCursor("test");
+  receiveNuiEvent(
+    "notification",
+    "addNotification",
+    (data: { type: NotificationType; text: string; time: number }) => {
+      if (data.type === NotificationType.Success) {
+        toast.success(data.text, {
+          duration: data.time,
+          position: "bottom-right",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      } else if (data.type === NotificationType.Error) {
+        toast.error(data.text, {
+          duration: data.time,
+          position: "bottom-right",
+          style: {
+            background: "#333",
+            color: "#fff",
+          },
+        });
+      }
     }
-  });
+  );
 
   return (
-    <Visibility moduleName="test">
-      <label>Message</label>
-      <input
-        onChange={(event: any) => {
-          setMessage(event.target.value);
-        }}
-        type="text"
-      />
+    <>
+      <Visibility moduleName="characterIndex" cursorWhen>
+        <IndexCharacter />
+      </Visibility>
 
-      <button
-        onClick={() => {
-          sendNuiEvent("test", "print", {
-            message,
-          });
+      <Visibility moduleName="characterList" cursorWhen>
+        <ListCharacter />
+      </Visibility>
 
-          disableCursor("test");
-          closeNui("test");
-        }}
-      >
-        Send message
-      </button>
-    </Visibility>
+      <Visibility moduleName="characterCreate" cursorWhen>
+        <CreateCharacter />
+      </Visibility>
+
+      <Toaster />
+    </>
   );
 }
 

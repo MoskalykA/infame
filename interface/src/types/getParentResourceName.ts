@@ -1,3 +1,3 @@
-declare function GetParentResourceName(): string
+declare function GetParentResourceName(): string;
 
-export default GetParentResourceName
+export default GetParentResourceName;

@@ -12,6 +12,8 @@ module.exports = {
       "./src/infame/nets/characters/selectCharacter.ts",
       "./src/infame/utils/characters/selectCharacter.ts",
       "./src/infame/utils/characters/characterData.ts",
+      "./src/infame/utils/addNotification.ts",
+      "./src/infame/types/notificationType.ts",
     ],
   },
   output: {

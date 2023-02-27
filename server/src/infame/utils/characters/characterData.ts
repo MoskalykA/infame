@@ -1,4 +1,5 @@
 interface CharacterData {
+  id: number;
   health: number;
   armor: number;
   model: number;

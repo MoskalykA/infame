@@ -1,10 +1,14 @@
 import GetParentResourceName from "@/types/getParentResourceName";
+import disableCursor from "@/providers/disableCursor";
+import closeNui from "@/providers/closeNui";
 
-const sendNuiEvent = (
+function sendNuiEvent(
   moduleName: string,
   functionName: string,
-  argsList: Object
-) => {
+  argsList: Object = {},
+  whenCloseNui: boolean = false,
+  whenDisableCursor: boolean = false
+) {
   fetch(`https://${GetParentResourceName()}/${moduleName}::${functionName}`, {
     method: "POST",
     headers: {
@@ -12,6 +16,14 @@ const sendNuiEvent = (
     },
     body: JSON.stringify(argsList),
   }).catch(console.error);
-};
+
+  if (whenCloseNui) {
+    closeNui(moduleName);
+  }
+
+  if (whenDisableCursor) {
+    disableCursor(moduleName);
+  }
+}
 
 export default sendNuiEvent;

@@ -12,6 +12,7 @@ const receiveNuiEvent = (
         functionName: string;
         argsList: Object;
       } = event.data;
+
       if (
         data.moduleName === moduleName &&
         data.functionName === functionName
