@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": "cd server && pnpm run build:dev && cd .. && cd client && pnpm run build:dev",
-    "build:prod": "cd server && pnpm run build:prod && cd .. && cd client && pnpm run build:prod"
+    "build": "cd server && pnpm run build && cd .. && cd client && pnpm run build"
   },
   "keywords": [],
   "author": "MoskalykA",
