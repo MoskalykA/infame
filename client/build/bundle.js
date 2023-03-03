@@ -1,6 +1,3 @@
-// src/infame/types/global.ts
-var global_default = global;
-
 // src/infame/utils/interface.ts
 var sendAction = (moduleName, functionName, argsList) => {
   SendNUIMessage({
@@ -15,55 +12,13 @@ var registerAction = (moduleName, functionName, callback) => {
   });
 };
 
-// src/infame/nets/playerJoining.ts
-onNet("infame.nets.playerJoining", () => {
-  global_default.exports.spawnmanager.spawnPlayer(
-    {
-      x: 0,
-      y: 0,
-      z: 0,
-      model: "a_m_m_skater_01"
-    },
-    () => {
-      sendAction("characterIndex", "setVisible", {
-        visible: true,
-        characters: [
-          {
-            id: 0,
-            firstName: "Arthur",
-            lastName: "Kriss"
-          },
-          {
-            id: 1,
-            firstName: "Victor",
-            lastName: "Kriss"
-          }
-        ]
-      });
-    }
-  );
+// src/infame/nets/characters/openMenu.ts
+onNet("infame.nets.characters.openMenu", (data) => {
+  sendAction("characterIndex", "setVisible", {
+    visible: true,
+    characters: data.characters
+  });
 });
-RegisterCommand(
-  "open",
-  () => {
-    sendAction("characterIndex", "setVisible", {
-      visible: true,
-      characters: [
-        {
-          id: 0,
-          firstName: "Arthur",
-          lastName: "Kriss"
-        },
-        {
-          id: 1,
-          firstName: "Victor",
-          lastName: "Kriss"
-        }
-      ]
-    });
-  },
-  false
-);
 
 // src/infame/nets/characters/setData.ts
 onNet("infame.nets.characters.setData", (health, armor) => {
@@ -113,6 +68,27 @@ registerAction(
   "characterCreate",
   "create",
   (characterData) => {
-    console.log(characterData.firstName, characterData.lastName);
+    emitNet("infame.nets.characters.createCharacter", {
+      firstName: characterData.firstName,
+      lastName: characterData.lastName
+    });
   }
 );
+
+// src/infame/types/global.ts
+var global_default = global;
+
+// src/infame/events/playerConnected.ts
+if (NetworkIsPlayerActive(PlayerId())) {
+  global_default.exports.spawnmanager.spawnPlayer(
+    {
+      x: 0,
+      y: 0,
+      z: 0,
+      model: "a_m_m_skater_01"
+    },
+    () => {
+      emitNet("infame.nets.playerConnected");
+    }
+  );
+}
