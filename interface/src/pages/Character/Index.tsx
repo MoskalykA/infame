@@ -1,4 +1,4 @@
-import type CharacterData from "@/types/characterData";
+import type { CharacterData } from "@/types/characterData";
 import receiveNuiEvent from "@/providers/receiveNuiEvent";
 import switchToComponent from "@/providers/switchToComponent";
 import { useState } from "react";
@@ -9,7 +9,7 @@ function Character() {
   receiveNuiEvent(
     CURRENT_COMPONENT,
     "isReady",
-    (data: { visible: boolean; characters: CharacterData[] }) => {
+    (data: { characters: CharacterData[] }) => {
       setCharacters(data.characters);
     }
   );

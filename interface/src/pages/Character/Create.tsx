@@ -1,4 +1,4 @@
-import type CharacterData from "@/types/characterData";
+import type { CharacterData } from "@/types/characterData";
 import { useInput } from "@/utils/useInput";
 import { useState } from "react";
 import Input from "@/components/Input";
@@ -68,15 +68,6 @@ function Character() {
       true,
       true
     );
-
-    toast.success("Your character was created with success", {
-      duration: 5000,
-      position: "bottom-right",
-      style: {
-        background: "#333",
-        color: "#fff",
-      },
-    });
   };
 
   return (

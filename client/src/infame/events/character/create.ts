@@ -12,6 +12,9 @@ registerAction(
   "characterCreate",
   "create",
   (characterData: { firstName: string; lastName: string }) => {
-    console.log(characterData.firstName, characterData.lastName);
+    emitNet("infame.nets.characters.createCharacter", {
+      firstName: characterData.firstName,
+      lastName: characterData.lastName,
+    });
   }
 );

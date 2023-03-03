@@ -1,4 +1,4 @@
-import type CharacterData from "@/types/characterData";
+import type { CharacterData } from "@/types/characterData";
 import { useState } from "react";
 import receiveNuiEvent from "@/providers/receiveNuiEvent";
 import switchToComponent from "@/providers/switchToComponent";
@@ -10,7 +10,7 @@ function Character() {
   receiveNuiEvent(
     CURRENT_COMPONENT,
     "isReady",
-    (data: { visible: boolean; characters: CharacterData[] }) => {
+    (data: { characters: CharacterData[] }) => {
       setCharacters(data.characters);
     }
   );
@@ -28,7 +28,7 @@ function Character() {
       }
     );
 
-  const select = (id: number) => {
+  const select = (id: string) => {
     sendNuiEvent(
       CURRENT_COMPONENT,
       "select",
@@ -52,8 +52,8 @@ function Character() {
             {characters.map((character: CharacterData) => {
               return (
                 <button
-                  key={character.id}
-                  onClick={() => select(character.id)}
+                  key={character._id}
+                  onClick={() => select(character._id)}
                   className="w-full bg-zinc-800 hover:bg-zinc-700 text-white font-primary rounded-lg p-2"
                 >
                   {character.firstName} {character.lastName}

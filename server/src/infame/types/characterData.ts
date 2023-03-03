@@ -1,5 +1,10 @@
-interface CharacterData {
-  id: number;
+export interface CharacterData {
+  _id: string;
+  playerId: string;
+
+  firstName: string;
+  lastName: string;
+
   health: number;
   armor: number;
   model: number;
@@ -10,5 +15,3 @@ interface CharacterData {
     z: number;
   };
 }
-
-export { CharacterData };
