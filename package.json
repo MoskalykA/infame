@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "MoskalykA",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^5.1.0"
+  }
 }
