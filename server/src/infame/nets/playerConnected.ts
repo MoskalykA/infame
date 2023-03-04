@@ -1,6 +1,6 @@
 import { env } from "@/env";
 import { client } from "@/infame/utils/sql";
-import { convertObjectIdsToStrings } from "../utils/sql/idToString";
+import { convertObjectIdsToStrings } from "@/infame/utils/sql/idToString";
 
 const callback = (source: number, id: string) => {
   const player = Player(source);

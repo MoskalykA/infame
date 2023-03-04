@@ -16,6 +16,49 @@ var env = {
   }
 };
 
+// src/infame/utils/addNotification.ts
+var addNotification = (source2, type, text, time) => {
+  emitNet("infame.nets.notifications.notification", source2, type, text, time);
+};
+
+// src/infame/events/onResourceRestart.ts
+on("onResourceStop", (resourceName) => {
+  if (GetCurrentResourceName() != resourceName) {
+    return;
+  }
+  GlobalState.infameAfterTheStop = true;
+});
+on("onResourceStart", (resourceName) => {
+  if (GetCurrentResourceName() != resourceName) {
+    return;
+  }
+  setTimeout(() => {
+    if (GlobalState.infameAfterTheStop) {
+      getPlayers().map((source2) => {
+        const player = Player(source2);
+        player.state.infameId = void 0;
+        if (env.character.enabled) {
+          player.state.characterId = void 0;
+        }
+        addNotification(
+          Number(source2),
+          0 /* Success */,
+          "The infame game mode was reloaded",
+          5e3
+        );
+        if (env.character.enabled) {
+          addNotification(
+            Number(source2),
+            0 /* Success */,
+            "You will have to choose your character again",
+            5e3
+          );
+        }
+      });
+    }
+  }, 1e3);
+});
+
 // src/infame/events/playerConnecting.ts
 AddEventHandler(
   "playerConnecting",
@@ -93,11 +136,6 @@ onNet("infame.nets.playerConnected", () => {
     }
   });
 });
-
-// src/infame/utils/addNotification.ts
-var addNotification = (source2, type, text, time) => {
-  emitNet("infame.nets.notifications.notification", source2, type, text, time);
-};
 
 // src/infame/utils/characters/selectCharacter.ts
 var import_mongodb2 = require("mongodb");
