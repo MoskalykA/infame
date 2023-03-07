@@ -61,7 +61,7 @@ on("onResourceStart", (resourceName) => {
 });
 
 // src/infame/events/playerConnecting.ts
-AddEventHandler(
+on(
   "playerConnecting",
   (playerName, setKickReason, deferrals) => {
     deferrals.defer();
