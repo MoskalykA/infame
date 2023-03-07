@@ -1,6 +1,6 @@
 import { env } from "@/env";
 
-AddEventHandler(
+on(
   "playerConnecting",
   (
     playerName: string,
