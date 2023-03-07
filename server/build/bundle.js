@@ -9,7 +9,10 @@ var env = {
     maxCharacters: 3,
     minHealth: 200,
     minArmor: 0,
-    defaultModel: 2488675799
+    defaultModel: 2488675799,
+    save: {
+      position: true
+    }
   },
   rank: {
     default: "user"
@@ -76,10 +79,43 @@ AddEventHandler(
   }
 );
 
+// src/infame/utils/characters/saveCharacter.ts
+var import_mongodb2 = require("mongodb");
+
 // src/infame/utils/sql.ts
 var import_mongodb = require("mongodb");
 var uri = "mongodb://127.0.0.1:27017";
 var client = new import_mongodb.MongoClient(uri);
+
+// src/infame/utils/characters/saveCharacter.ts
+var saveCharacter = (source2, characterId) => {
+  const saveData = {};
+  if (env.character.save.position) {
+    const [x, y, z] = GetEntityCoords(GetPlayerPed(source2.toString()));
+    saveData["position"] = {
+      x,
+      y,
+      z
+    };
+  }
+  client.db("infame").collection("characters").updateOne(
+    {
+      _id: import_mongodb2.ObjectId.createFromHexString(characterId)
+    },
+    {
+      $set: saveData
+    }
+  );
+};
+
+// src/infame/events/playerDropped.ts
+on("playerDropped", () => {
+  const src = source;
+  const player = Player(src);
+  if (player.state.characterId) {
+    saveCharacter(src, player.state.characterId);
+  }
+});
 
 // src/infame/utils/sql/idToString.ts
 var convertObjectIdsToStrings = (obj) => {
@@ -136,10 +172,10 @@ onNet("infame.nets.playerConnected", () => {
 });
 
 // src/infame/utils/characters/selectCharacter.ts
-var import_mongodb2 = require("mongodb");
+var import_mongodb3 = require("mongodb");
 var selectCharacter = (source2, characterId) => {
   client.db("infame").collection("characters").findOne({
-    _id: import_mongodb2.ObjectId.createFromHexString(characterId)
+    _id: import_mongodb3.ObjectId.createFromHexString(characterId)
   }).then((character) => {
     if (character) {
       addNotification(
