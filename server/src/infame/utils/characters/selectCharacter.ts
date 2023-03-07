@@ -1,6 +1,7 @@
 import { NotificationType } from "@/infame/types/notificationType";
 import { addNotification } from "@/infame/utils/addNotification";
 import { client } from "@/infame/utils/sql";
+import { open } from "@/infame/utils/characters/open";
 import { ObjectId } from "mongodb";
 
 const selectCharacter = (source: number, characterId: string): void => {
@@ -57,6 +58,8 @@ const selectCharacter = (source: number, characterId: string): void => {
           "This character does not exist",
           5000
         );
+
+        open(source);
       }
     })
     .catch(() => {
@@ -66,6 +69,8 @@ const selectCharacter = (source: number, characterId: string): void => {
         "It is impossible to do this",
         5000
       );
+
+      open(source);
     });
 };
 
