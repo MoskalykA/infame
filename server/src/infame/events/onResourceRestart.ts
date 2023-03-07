@@ -21,10 +21,6 @@ on("onResourceStart", (resourceName: string) => {
         const player = Player(source);
         player.state.infameId = undefined;
 
-        if (env.character.enabled) {
-          player.state.characterId = undefined;
-        }
-
         addNotification(
           Number(source),
           NotificationType.Success,
@@ -33,6 +29,8 @@ on("onResourceStart", (resourceName: string) => {
         );
 
         if (env.character.enabled) {
+          player.state.characterId = undefined;
+
           addNotification(
             Number(source),
             NotificationType.Success,
