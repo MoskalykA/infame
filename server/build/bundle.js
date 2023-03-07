@@ -37,9 +37,6 @@ on("onResourceStart", (resourceName) => {
       getPlayers().map((source2) => {
         const player = Player(source2);
         player.state.infameId = void 0;
-        if (env.character.enabled) {
-          player.state.characterId = void 0;
-        }
         addNotification(
           Number(source2),
           0 /* Success */,
@@ -47,6 +44,7 @@ on("onResourceStart", (resourceName) => {
           5e3
         );
         if (env.character.enabled) {
+          player.state.characterId = void 0;
           addNotification(
             Number(source2),
             0 /* Success */,
