@@ -13,6 +13,10 @@ export const env = {
     minArmor: 0,
 
     defaultModel: 0x94562dd7,
+
+    save: {
+      position: true
+    }
   },
 
   rank: {
