@@ -8,6 +8,6 @@ registerAction("characterList", "onEnableCursor", () => {
   SetNuiFocus(true, true);
 });
 
-registerAction("characterList", "select", (id: number) => {
-  emitNet("infame.nets.characters.selectCharacter", id);
+registerAction("characterList", "select", (data: { id: string }) => {
+  emitNet("infame.nets.characters.selectCharacter", data.id);
 });

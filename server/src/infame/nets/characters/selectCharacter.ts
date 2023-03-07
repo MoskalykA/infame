@@ -2,7 +2,7 @@ import { NotificationType } from "@/infame/types/notificationType";
 import { addNotification } from "@/infame/utils/addNotification";
 import { selectCharacter } from "@/infame/utils/characters/selectCharacter";
 
-onNet("infame.nets.characters.selectCharacter", (data: { id: string }) => {
+onNet("infame.nets.characters.selectCharacter", (id: string) => {
   const src = source;
   const player = Player(src);
   if (player.state.characterId) {
@@ -16,5 +16,5 @@ onNet("infame.nets.characters.selectCharacter", (data: { id: string }) => {
     return;
   }
 
-  selectCharacter(src, data.id);
+  selectCharacter(src, id);
 });
