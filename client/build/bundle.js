@@ -53,8 +53,8 @@ registerAction("characterList", "onDisableCursor", () => {
 registerAction("characterList", "onEnableCursor", () => {
   SetNuiFocus(true, true);
 });
-registerAction("characterList", "select", (id) => {
-  emitNet("infame.nets.characters.selectCharacter", id);
+registerAction("characterList", "select", (data) => {
+  emitNet("infame.nets.characters.selectCharacter", data.id);
 });
 
 // src/infame/events/character/create.ts

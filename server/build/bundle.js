@@ -117,60 +117,6 @@ on("playerDropped", () => {
   }
 });
 
-// src/infame/utils/sql/idToString.ts
-var convertObjectIdsToStrings = (obj) => {
-  for (const key in obj) {
-    if (key == "_id" && obj[key].toHexString) {
-      obj[key] = obj[key].toHexString();
-    } else if (typeof obj[key] == "object") {
-      obj[key] = convertObjectIdsToStrings(obj[key]);
-    }
-  }
-  return obj;
-};
-
-// src/infame/nets/playerConnected.ts
-var callback = (source2, id) => {
-  const player = Player(source2);
-  player.state.infameId = id;
-  if (env.character.enabled) {
-    client.db("infame").collection("characters").find({
-      playerId: id
-    }).toArray().then((characters) => {
-      emitNet("infame.nets.characters.openMenu", source2, {
-        characters: convertObjectIdsToStrings(characters)
-      });
-    });
-  }
-};
-onNet("infame.nets.playerConnected", () => {
-  const src = source;
-  const identifiers = getPlayerIdentifiers(src);
-  const identifier = identifiers.findIndex(
-    (identifier2) => identifier2.startsWith(env.identifier.name)
-  );
-  const identifierId = identifiers[identifier].replace(
-    `${env.identifier.name}:`,
-    ""
-  );
-  client.db("infame").collection("users").updateOne(
-    { discord: identifierId },
-    { $setOnInsert: { rank: env.rank.default, discord: identifierId } },
-    { upsert: true }
-  ).then((value) => {
-    if (value.upsertedId != null) {
-      callback(src, value.upsertedId.toHexString());
-    } else {
-      client.db("infame").collection("users").findOne({ discord: identifierId }).then((value2) => {
-        if (value2 == null ? void 0 : value2._id) {
-          callback(src, value2._id.toHexString());
-        } else {
-        }
-      });
-    }
-  });
-});
-
 // src/infame/utils/characters/selectCharacter.ts
 var import_mongodb3 = require("mongodb");
 var selectCharacter = (source2, characterId) => {
@@ -213,6 +159,7 @@ var selectCharacter = (source2, characterId) => {
         "This character does not exist",
         5e3
       );
+      open(source2);
     }
   }).catch(() => {
     addNotification(
@@ -221,6 +168,7 @@ var selectCharacter = (source2, characterId) => {
       "It is impossible to do this",
       5e3
     );
+    open(source2);
   });
 };
 
@@ -280,7 +228,7 @@ onNet(
 );
 
 // src/infame/nets/characters/selectCharacter.ts
-onNet("infame.nets.characters.selectCharacter", (data) => {
+onNet("infame.nets.characters.selectCharacter", (id) => {
   const src = source;
   const player = Player(src);
   if (player.state.characterId) {
@@ -292,5 +240,64 @@ onNet("infame.nets.characters.selectCharacter", (data) => {
     );
     return;
   }
-  selectCharacter(src, data.id);
+  selectCharacter(src, id);
+});
+
+// src/infame/utils/sql/idToString.ts
+var convertObjectIdsToStrings = (obj) => {
+  for (const key in obj) {
+    if (key == "_id" && obj[key].toHexString) {
+      obj[key] = obj[key].toHexString();
+    } else if (typeof obj[key] == "object") {
+      obj[key] = convertObjectIdsToStrings(obj[key]);
+    }
+  }
+  return obj;
+};
+
+// src/infame/utils/characters/open.ts
+var callback = (source2, id) => {
+  const player = Player(source2);
+  player.state.infameId = id;
+  if (env.character.enabled) {
+    client.db("infame").collection("characters").find({
+      playerId: id
+    }).toArray().then((characters) => {
+      emitNet("infame.nets.characters.openMenu", source2, {
+        characters: convertObjectIdsToStrings(characters)
+      });
+    });
+  }
+};
+var open = (source2) => {
+  const identifiers = getPlayerIdentifiers(source2);
+  const identifier = identifiers.findIndex(
+    (identifier2) => identifier2.startsWith(env.identifier.name)
+  );
+  const identifierId = identifiers[identifier].replace(
+    `${env.identifier.name}:`,
+    ""
+  );
+  client.db("infame").collection("users").updateOne(
+    { discord: identifierId },
+    { $setOnInsert: { rank: env.rank.default, discord: identifierId } },
+    { upsert: true }
+  ).then((value) => {
+    if (value.upsertedId != null) {
+      callback(source2, value.upsertedId.toHexString());
+    } else {
+      client.db("infame").collection("users").findOne({ discord: identifierId }).then((value2) => {
+        if (value2 == null ? void 0 : value2._id) {
+          callback(source2, value2._id.toHexString());
+        } else {
+        }
+      });
+    }
+  });
+};
+
+// src/infame/nets/playerConnected.ts
+onNet("infame.nets.playerConnected", () => {
+  const src = source;
+  open(src);
 });
