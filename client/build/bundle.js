@@ -79,16 +79,19 @@ registerAction(
 var global_default = global;
 
 // src/infame/events/playerConnected.ts
-if (NetworkIsPlayerActive(PlayerId())) {
-  global_default.exports.spawnmanager.spawnPlayer(
-    {
-      x: 0,
-      y: 0,
-      z: 0,
-      model: "a_m_m_skater_01"
-    },
-    () => {
-      emitNet("infame.nets.playerConnected");
-    }
-  );
-}
+var interval = setInterval(() => {
+  if (NetworkIsPlayerActive(PlayerId())) {
+    clearInterval(interval);
+    global_default.exports.spawnmanager.spawnPlayer(
+      {
+        x: 0,
+        y: 0,
+        z: 0,
+        model: "a_m_m_skater_01"
+      },
+      () => {
+        emitNet("infame.nets.playerConnected");
+      }
+    );
+  }
+}, 100);
