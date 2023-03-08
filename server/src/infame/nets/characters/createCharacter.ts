@@ -50,7 +50,7 @@ onNet(
               health: env.character.minHealth,
               armor: env.character.minArmor,
               model: env.character.defaultModel,
-              weapons: [0x5ef9fec4, 0x624fe830], // todo: default weapon
+              weapons: env.weapon.default,
               position: {
                 x: 0,
                 y: 0,

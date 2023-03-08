@@ -19,6 +19,13 @@ const callback = (source: number, id: string) => {
           characters: convertObjectIdsToStrings(characters),
         });
       });
+  } else {
+    const playerPed = GetPlayerPed(source.toString());
+    RemoveAllPedWeapons(playerPed, false);
+
+    env.weapon.default.map((weapon: number) => {
+      GiveWeaponToPed(playerPed, weapon, 100, false, false);
+    });
   }
 };
 

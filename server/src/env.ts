@@ -21,6 +21,10 @@ export const env = {
     },
   },
 
+  weapon: {
+    default: [0x5ef9fec4, 0x624fe830],
+  },
+
   rank: {
     default: "user",
   },
