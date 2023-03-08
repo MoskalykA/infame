@@ -16,6 +16,9 @@ var env = {
       armor: true
     }
   },
+  weapon: {
+    default: [1593441988, 1649403952]
+  },
   rank: {
     default: "user"
   }
@@ -214,8 +217,7 @@ onNet(
           health: env.character.minHealth,
           armor: env.character.minArmor,
           model: env.character.defaultModel,
-          weapons: [1593441988, 1649403952],
-          // todo: default weapon
+          weapons: env.weapon.default,
           position: {
             x: 0,
             y: 0,
@@ -275,6 +277,12 @@ var callback = (source2, id) => {
       emitNet("infame.nets.characters.openMenu", source2, {
         characters: convertObjectIdsToStrings(characters)
       });
+    });
+  } else {
+    const playerPed = GetPlayerPed(source2.toString());
+    RemoveAllPedWeapons(playerPed, false);
+    env.weapon.default.map((weapon) => {
+      GiveWeaponToPed(playerPed, weapon, 100, false, false);
     });
   }
 };
