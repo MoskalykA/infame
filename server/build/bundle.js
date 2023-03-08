@@ -298,7 +298,6 @@ var open = (source2) => {
       client.db("infame").collection("users").findOne({ discord: identifierId }).then((value2) => {
         if (value2 == null ? void 0 : value2._id) {
           callback(source2, value2._id.toHexString());
-        } else {
         }
       });
     }
