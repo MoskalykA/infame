@@ -19,6 +19,10 @@ const saveCharacter = (source: number, characterId: string): void => {
     saveData["health"] = GetEntityHealth(playerPed);
   }
 
+  if (env.character.save.armor) {
+    saveData["armor"] = GetPedArmour(playerPed);
+  }
+
   client
     .db("infame")
     .collection("characters")

@@ -17,6 +17,7 @@ export const env = {
     save: {
       position: true,
       health: true,
+      armor: true,
     },
   },
 
