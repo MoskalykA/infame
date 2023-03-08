@@ -11,7 +11,9 @@ var env = {
     minArmor: 0,
     defaultModel: 2488675799,
     save: {
-      position: true
+      position: true,
+      health: true,
+      armor: true
     }
   },
   rank: {
@@ -90,13 +92,20 @@ var client = new import_mongodb.MongoClient(uri);
 // src/infame/utils/characters/saveCharacter.ts
 var saveCharacter = (source2, characterId) => {
   const saveData = {};
+  const playerPed = GetPlayerPed(source2.toString());
   if (env.character.save.position) {
-    const [x, y, z] = GetEntityCoords(GetPlayerPed(source2.toString()));
+    const [x, y, z] = GetEntityCoords(playerPed);
     saveData["position"] = {
       x,
       y,
       z
     };
+  }
+  if (env.character.save.health) {
+    saveData["health"] = GetEntityHealth(playerPed);
+  }
+  if (env.character.save.armor) {
+    saveData["armor"] = GetPedArmour(playerPed);
   }
   client.db("infame").collection("characters").updateOne(
     {
