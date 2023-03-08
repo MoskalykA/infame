@@ -4,14 +4,19 @@ import { client } from "@/infame/utils/sql";
 
 const saveCharacter = (source: number, characterId: string): void => {
   const saveData: any = {};
+  const playerPed = GetPlayerPed(source.toString());
   if (env.character.save.position) {
-    const [x, y, z] = GetEntityCoords(GetPlayerPed(source.toString()));
+    const [x, y, z] = GetEntityCoords(playerPed);
 
     saveData["position"] = {
       x,
       y,
       z,
     };
+  }
+
+  if (env.character.save.health) {
+    saveData["health"] = GetEntityHealth(playerPed);
   }
 
   client

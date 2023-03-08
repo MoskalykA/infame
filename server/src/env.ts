@@ -15,8 +15,9 @@ export const env = {
     defaultModel: 0x94562dd7,
 
     save: {
-      position: true
-    }
+      position: true,
+      health: true,
+    },
   },
 
   rank: {
