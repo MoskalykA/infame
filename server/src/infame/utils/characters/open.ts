@@ -52,8 +52,6 @@ const open = (source: number) => {
           .then((value) => {
             if (value?._id) {
               callback(source, value._id.toHexString());
-            } else {
-              // todo: kick
             }
           });
       }
