@@ -1,5 +1,3 @@
-import { Logger } from "tslog";
+import { Logger, ILogObj } from "tslog";
 
-export const logger = new Logger({
-  name: "infame",
-});
+export const logger: Logger<ILogObj> = new Logger();
