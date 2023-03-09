@@ -3,12 +3,10 @@ lockfileVersion: 5.4
 specifiers:
   '@citizenfx/client': 2.0.6286-1
   esbuild: ^0.17.10
-  tslog: ^4.8.2
   typescript: ^4.9.5
 
 dependencies:
   esbuild: 0.17.10
-  tslog: 4.8.2
 
 devDependencies:
   '@citizenfx/client': 2.0.6286-1
@@ -246,11 +244,6 @@ packages:
       '@esbuild/win32-arm64': 0.17.10
       '@esbuild/win32-ia32': 0.17.10
       '@esbuild/win32-x64': 0.17.10
-    dev: false
-
-  /tslog/4.8.2:
-    resolution: {integrity: sha512-eAKIRjxfSKYLs06r1wT7oou6Uv9VN6NW9g0JPidBlqQwPBBl5+84dm7r8zSOPVq1kyfEw1P6B3/FLSpZCorAgA==}
-    engines: {node: '>=16'}
     dev: false
 
   /typescript/4.9.5:
