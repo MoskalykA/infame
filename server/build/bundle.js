@@ -125,14 +125,20 @@ var saveCharacter = (source2, characterId) => {
   );
 };
 
-// src/infame/events/playerDropped.ts
-on("playerDropped", () => {
-  const src = source;
-  const player = Player(src);
-  if (player.state.characterId) {
-    saveCharacter(src, player.state.characterId);
-  }
-});
+// src/infame/events/playerSave.ts
+if (env.character.enabled) {
+  setInterval(() => {
+    getPlayers().map((source2) => {
+      const player = Player(source2);
+      if (player.state.infameId && player.state.characterId) {
+        saveCharacter(Number(source2), player.state.characterId);
+      }
+      if (env.log.enabled) {
+        logger.info("All the characters were saved");
+      }
+    });
+  }, env.saveTime);
+}
 
 // src/infame/utils/characters/selectCharacter.ts
 var import_mongodb3 = require("mongodb");
@@ -141,6 +147,13 @@ var selectCharacter = (source2, characterId) => {
     _id: import_mongodb3.ObjectId.createFromHexString(characterId)
   }).then((character) => {
     if (character) {
+      if (env.log.enabled) {
+        logger.info(
+          `${GetPlayerName(
+            source2.toString()
+          )} has just chosen a character (${characterId})`
+        );
+      }
       addNotification(
         source2,
         0 /* Success */,
@@ -230,6 +243,13 @@ onNet(
           }
           // todo: default position
         }).then((response) => {
+          if (env.log.enabled) {
+            logger.info(
+              `${GetPlayerName(
+                source.toString()
+              )} has just created a character (${response.insertedId.toHexString()})`
+            );
+          }
           selectCharacter(src, response.insertedId.toHexString());
           addNotification(
             src,
@@ -320,6 +340,9 @@ var open = (source2) => {
 // src/infame/nets/playerConnected.ts
 onNet("infame.nets.playerConnected", () => {
   const src = source;
+  if (env.log.enabled) {
+    logger.info(`${GetPlayerName(src.toString())} has just joined`);
+  }
   open(src);
 });
 
@@ -806,17 +829,14 @@ var logger = new Logger({
   hideLogPositionForProduction: true
 });
 
-// src/infame/events/playerSave.ts
-if (env.character.enabled) {
-  setInterval(() => {
-    getPlayers().map((source2) => {
-      const player = Player(source2);
-      if (player.state.infameId && player.state.characterId) {
-        saveCharacter(player.state.infameId, player.state.characterId);
-      }
-      if (env.log.enabled) {
-        logger.info("All the characters were saved");
-      }
-    });
-  }, env.saveTime);
-}
+// src/infame/events/playerDropped.ts
+on("playerDropped", () => {
+  const src = source;
+  if (env.log.enabled) {
+    logger.info(`${GetPlayerName(src.toString())} has just disconnected`);
+  }
+  const player = Player(src);
+  if (player.state.characterId) {
+    saveCharacter(src, player.state.characterId);
+  }
+});
