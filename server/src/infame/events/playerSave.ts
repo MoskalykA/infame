@@ -7,7 +7,7 @@ if (env.character.enabled) {
     getPlayers().map((source: string) => {
       const player = Player(source);
       if (player.state.infameId && player.state.characterId) {
-        saveCharacter(player.state.infameId, player.state.characterId);
+        saveCharacter(Number(source), player.state.characterId);
       }
 
       if (env.log.enabled) {
