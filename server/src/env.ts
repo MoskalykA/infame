@@ -28,4 +28,6 @@ export const env = {
   rank: {
     default: "user",
   },
+
+  saveTime: 60_000, // 60 seconds
 };
