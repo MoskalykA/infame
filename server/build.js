@@ -17,6 +17,7 @@ build({
     "./src/infame/utils/characters/saveCharacter.ts",
     "./src/infame/utils/addNotification.ts",
     "./src/infame/utils/sql.ts",
+    "./src/infame/utils/logger.ts",
     "./src/infame/utils/sql/idToString.ts",
     "./src/infame/types/characterData.ts",
     "./src/infame/types/notificationType.ts",

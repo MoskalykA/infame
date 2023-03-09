@@ -29,5 +29,9 @@ export const env = {
     default: "user",
   },
 
+  log: {
+    enabled: true,
+  },
+
   saveTime: 60_000, // 60 seconds
 };

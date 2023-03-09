@@ -5,12 +5,14 @@ specifiers:
   esbuild: 0.17.10
   esbuild-plugin-fileloc: ^0.0.6
   mongodb: '5.1'
+  tslog: ^4.8.2
   typescript: ^4.9.5
 
 dependencies:
   esbuild: 0.17.10
   esbuild-plugin-fileloc: 0.0.6
   mongodb: 5.1.0
+  tslog: 4.8.2
 
 devDependencies:
   '@citizenfx/server': 2.0.6286-1
@@ -380,6 +382,11 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       punycode: 2.3.0
+    dev: false
+
+  /tslog/4.8.2:
+    resolution: {integrity: sha512-eAKIRjxfSKYLs06r1wT7oou6Uv9VN6NW9g0JPidBlqQwPBBl5+84dm7r8zSOPVq1kyfEw1P6B3/FLSpZCorAgA==}
+    engines: {node: '>=16'}
     dev: false
 
   /typescript/4.9.5:

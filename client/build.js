@@ -4,6 +4,7 @@ build({
   bundle: true,
   stdin: { contents: "" },
   inject: [
+    "./src/env.ts",
     "./src/infame/nets/characters/openMenu.ts",
     "./src/infame/nets/characters/setData.ts",
     "./src/infame/nets/notifications/notification.ts",
@@ -11,6 +12,7 @@ build({
     "./src/infame/events/character/list.ts",
     "./src/infame/events/character/create.ts",
     "./src/infame/events/playerConnected.ts",
+    "./src/infame/utils/logger.ts",
     "./src/infame/utils/interface.ts",
     "./src/infame/utils/addNotification.ts",
     "./src/infame/types/global.ts",
