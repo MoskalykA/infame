@@ -9,6 +9,7 @@ build({
     "./src/infame/events/onResourceRestart.ts",
     "./src/infame/events/playerConnecting.ts",
     "./src/infame/events/playerDropped.ts",
+    "./src/infame/events/playerSave.ts",
     "./src/infame/nets/playerConnected.ts",
     "./src/infame/nets/characters/createCharacter.ts",
     "./src/infame/nets/characters/selectCharacter.ts",

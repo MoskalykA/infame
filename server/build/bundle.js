@@ -21,7 +21,9 @@ var env = {
   },
   rank: {
     default: "user"
-  }
+  },
+  saveTime: 6e4
+  // 60 seconds
 };
 
 // src/infame/utils/addNotification.ts
@@ -128,6 +130,18 @@ on("playerDropped", () => {
     saveCharacter(src, player.state.characterId);
   }
 });
+
+// src/infame/events/playerSave.ts
+if (env.character.enabled) {
+  setInterval(() => {
+    getPlayers().map((source2) => {
+      const player = Player(source2);
+      if (player.state.infameId && player.state.characterId) {
+        saveCharacter(player.state.infameId, player.state.characterId);
+      }
+    });
+  }, env.saveTime);
+}
 
 // src/infame/utils/characters/selectCharacter.ts
 var import_mongodb3 = require("mongodb");
