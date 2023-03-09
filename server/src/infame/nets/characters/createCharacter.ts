@@ -2,6 +2,7 @@ import { env } from "@/env";
 import { NotificationType } from "@/infame/types/notificationType";
 import { addNotification } from "@/infame/utils/addNotification";
 import { selectCharacter } from "@/infame/utils/characters/selectCharacter";
+import { logger } from "@/infame/utils/logger";
 import { client } from "@/infame/utils/sql";
 
 onNet(
@@ -58,6 +59,14 @@ onNet(
               }, // todo: default position
             })
             .then((response) => {
+              if (env.log.enabled) {
+                logger.info(
+                  `${GetPlayerName(
+                    source.toString()
+                  )} has just created a character (${response.insertedId.toHexString()})`
+                );
+              }
+
               selectCharacter(src, response.insertedId.toHexString());
 
               addNotification(

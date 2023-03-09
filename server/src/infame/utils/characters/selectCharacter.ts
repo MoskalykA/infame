@@ -3,6 +3,8 @@ import { addNotification } from "@/infame/utils/addNotification";
 import { client } from "@/infame/utils/sql";
 import { open } from "@/infame/utils/characters/open";
 import { ObjectId } from "mongodb";
+import { env } from "@/env";
+import { logger } from "@/infame/utils/logger";
 
 const selectCharacter = (source: number, characterId: string): void => {
   client
@@ -13,6 +15,14 @@ const selectCharacter = (source: number, characterId: string): void => {
     })
     .then((character) => {
       if (character) {
+        if (env.log.enabled) {
+          logger.info(
+            `${GetPlayerName(
+              source.toString()
+            )} has just chosen a character (${characterId})`
+          );
+        }
+
         addNotification(
           source,
           NotificationType.Success,
