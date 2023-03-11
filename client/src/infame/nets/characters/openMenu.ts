@@ -5,6 +5,4 @@ onNet("infame.nets.characters.openMenu", (data: { characters: any[] }) => {
     visible: true,
     characters: data.characters,
   });
-
-  // TODO: Managing player death
 });

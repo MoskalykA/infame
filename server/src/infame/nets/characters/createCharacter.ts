@@ -56,7 +56,7 @@ onNet(
                 x: 0,
                 y: 0,
                 z: 0,
-              }, // todo: default position
+              },
             })
             .then((response) => {
               if (env.log.enabled) {
