@@ -1,4 +1,6 @@
-export const env = {
+import { Env } from "@/infame/types/env";
+
+export const env: Env = {
   identifier: {
     name: "discord",
   },
