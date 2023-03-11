@@ -20,6 +20,5 @@
 
 # Other features:
 
-- Richpresence system by discord
 - Blip system
 - Language system

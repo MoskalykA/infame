@@ -4,6 +4,7 @@ build({
   bundle: true,
   stdin: { contents: "" },
   inject: [
+    "./src/env.ts",
     "./src/infame/nets/characters/openMenu.ts",
     "./src/infame/nets/characters/setData.ts",
     "./src/infame/nets/notifications/notification.ts",
