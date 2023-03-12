@@ -31,6 +31,7 @@ export interface Env {
 
   log: {
     enabled: boolean;
+    saveInDatabase: boolean;
   };
 
   ban: {

@@ -4,7 +4,7 @@ import { client } from "@/infame/utils/sql";
 import { open } from "@/infame/utils/characters/open";
 import { ObjectId } from "mongodb";
 import { env } from "@/env";
-import { logger } from "@/infame/utils/logger";
+import { info } from "@/infame/utils/logger";
 
 const selectCharacter = (source: number, characterId: string): void => {
   client
@@ -16,7 +16,7 @@ const selectCharacter = (source: number, characterId: string): void => {
     .then((character) => {
       if (character) {
         if (env.log.enabled) {
-          logger.info(
+          info(
             `${GetPlayerName(
               source.toString()
             )} has just chosen a character (${characterId})`

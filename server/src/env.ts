@@ -33,6 +33,7 @@ export const env: Env = {
 
   log: {
     enabled: true,
+    saveInDatabase: true,
   },
 
   ban: {
