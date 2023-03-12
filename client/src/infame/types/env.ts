@@ -20,4 +20,8 @@ export interface Env {
 
     refreshInterval: number;
   };
+
+  death: {
+    timeForRespawn: number;
+  };
 }

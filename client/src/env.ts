@@ -22,4 +22,8 @@ export const env: Env = {
 
     refreshInterval: 60_000, // 60 seconds
   },
+
+  death: {
+    timeForRespawn: 10_000, // 60 seconds
+  },
 };
