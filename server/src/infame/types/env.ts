@@ -33,5 +33,9 @@ export interface Env {
     enabled: boolean;
   };
 
+  ban: {
+    enabled: boolean;
+  };
+
   saveTime: number;
 }

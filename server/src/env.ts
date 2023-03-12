@@ -35,5 +35,9 @@ export const env: Env = {
     enabled: true,
   },
 
+  ban: {
+    enabled: true,
+  },
+
   saveTime: 60_000, // 60 seconds
 };

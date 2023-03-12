@@ -23,4 +23,3 @@
 
 - Blip system
 - Language system
-- Ban system
