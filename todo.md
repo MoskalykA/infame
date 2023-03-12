@@ -16,9 +16,11 @@
 
 # Death system:
 
-- Possibility to have the same death as in GTAV
+- Have a death menu in NUI
+- A consequence with the character system
 
 # Other features:
 
 - Blip system
 - Language system
+- Ban system
