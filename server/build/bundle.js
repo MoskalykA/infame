@@ -23,6 +23,10 @@ var env = {
     default: "user"
   },
   log: {
+    enabled: true,
+    saveInDatabase: true
+  },
+  ban: {
     enabled: true
   },
   saveTime: 6e4
@@ -70,16 +74,59 @@ on("onResourceStart", (resourceName) => {
   }, 1e3);
 });
 
+// src/infame/utils/sql.ts
+var import_mongodb = require("mongodb");
+var uri = "mongodb://127.0.0.1:27017";
+var client = new import_mongodb.MongoClient(uri);
+
 // src/infame/events/playerConnecting.ts
 on(
   "playerConnecting",
   (playerName, setKickReason, deferrals) => {
     deferrals.defer();
     const identifiers = getPlayerIdentifiers(source);
-    if (identifiers.findIndex(
+    const identifierIndex = identifiers.findIndex(
       (identifier) => identifier.startsWith(env.identifier.name)
-    ) > -1) {
-      deferrals.done();
+    );
+    if (identifierIndex > -1) {
+      if (env.ban.enabled) {
+        client.db("infame").collection("bans").findOne({
+          discord: identifiers[identifierIndex].replace(
+            `${env.identifier.name}:`,
+            ""
+          )
+        }).then((res) => {
+          if (res === null) {
+            deferrals.done();
+          } else {
+            if ((/* @__PURE__ */ new Date()).getTime() >= res.time) {
+              client.db("infame").collection("bans").deleteOne({
+                discord: identifiers[identifierIndex].replace(
+                  `${env.identifier.name}:`,
+                  ""
+                )
+              }).then(() => {
+                deferrals.update(
+                  "You have been unbanned, please be careful."
+                );
+                setTimeout(() => {
+                  deferrals.done();
+                  CancelEvent();
+                }, 5e3);
+              });
+            } else {
+              deferrals.done(
+                `You were banned for ${res.reason} by ${res.author} and you will be unbanned on ${new Date(
+                  res.time
+                ).toLocaleString()}.`
+              );
+              CancelEvent();
+            }
+          }
+        });
+      } else {
+        deferrals.done();
+      }
     } else {
       deferrals.done(
         `You do not have an open ${env.identifier.name} so you are not able to join the server.`
@@ -91,13 +138,6 @@ on(
 
 // src/infame/utils/characters/saveCharacter.ts
 var import_mongodb2 = require("mongodb");
-
-// src/infame/utils/sql.ts
-var import_mongodb = require("mongodb");
-var uri = "mongodb://127.0.0.1:27017";
-var client = new import_mongodb.MongoClient(uri);
-
-// src/infame/utils/characters/saveCharacter.ts
 var saveCharacter = (source2, characterId) => {
   const saveData = {};
   const playerPed = GetPlayerPed(source2.toString());
@@ -134,11 +174,38 @@ if (env.character.enabled) {
         saveCharacter(Number(source2), player.state.characterId);
       }
       if (env.log.enabled) {
-        logger.info("All the characters were saved");
+        info("All the characters were saved");
       }
     });
   }, env.saveTime);
 }
+
+// src/infame/nets/onPlayerKilled.ts
+onNet("baseevents:onPlayerKilled", () => {
+  const src = source;
+  const player = Player(src);
+  if (env.character.enabled && player.state.characterId) {
+    player.state.characterId = void 0;
+  }
+});
+
+// src/infame/nets/onPlayerDied.ts
+onNet("baseevents:onPlayerDied", () => {
+  const src = source;
+  const player = Player(src);
+  if (env.character.enabled && player.state.characterId) {
+    player.state.characterId = void 0;
+  }
+});
+
+// src/infame/nets/onPlayerWasted.ts
+onNet("baseevents:onPlayerWasted", () => {
+  const src = source;
+  const player = Player(src);
+  if (env.character.enabled && player.state.characterId) {
+    player.state.characterId = void 0;
+  }
+});
 
 // src/infame/utils/characters/selectCharacter.ts
 var import_mongodb3 = require("mongodb");
@@ -148,7 +215,7 @@ var selectCharacter = (source2, characterId) => {
   }).then((character) => {
     if (character) {
       if (env.log.enabled) {
-        logger.info(
+        info(
           `${GetPlayerName(
             source2.toString()
           )} has just chosen a character (${characterId})`
@@ -243,7 +310,7 @@ onNet(
           }
         }).then((response) => {
           if (env.log.enabled) {
-            logger.info(
+            info(
               `${GetPlayerName(
                 source.toString()
               )} has just created a character (${response.insertedId.toHexString()})`
@@ -340,7 +407,7 @@ var open = (source2) => {
 onNet("infame.nets.playerConnected", () => {
   const src = source;
   if (env.log.enabled) {
-    logger.info(`${GetPlayerName(src.toString())} has just joined`);
+    info(`${GetPlayerName(src.toString())} has just joined`);
   }
   open(src);
 });
@@ -827,12 +894,21 @@ var Logger = class extends BaseLogger {
 var logger = new Logger({
   hideLogPositionForProduction: true
 });
+var info = (...args) => {
+  if (env.log.saveInDatabase) {
+    client.db("infame").collection("logs").insertOne({
+      content: args.length === 1 ? args[0] : JSON.stringify(args),
+      time: (/* @__PURE__ */ new Date()).getTime()
+    });
+  }
+  logger.info(...args);
+};
 
 // src/infame/events/playerDropped.ts
 on("playerDropped", () => {
   const src = source;
   if (env.log.enabled) {
-    logger.info(`${GetPlayerName(src.toString())} has just disconnected`);
+    info(`${GetPlayerName(src.toString())} has just disconnected`);
   }
   const player = Player(src);
   if (player.state.characterId) {
