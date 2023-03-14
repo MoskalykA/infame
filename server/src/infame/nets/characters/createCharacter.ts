@@ -51,9 +51,9 @@ onNet(
               firstName: data.firstName,
               lastName: data.lastName,
 
-              health: env.character.minHealth,
-              armor: env.character.minArmor,
-              model: env.character.defaultModel,
+              health: env.health.default,
+              armor: env.armor.default,
+              model: env.model.default,
               weapons: env.weapon.default,
               position: {
                 x: 0,

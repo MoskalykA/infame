@@ -6,8 +6,8 @@ build({
   stdin: { contents: "" },
   inject: [
     "./src/env.ts",
+    "./src/infame/nets/players/setData.ts",
     "./src/infame/nets/characters/openMenu.ts",
-    "./src/infame/nets/characters/setData.ts",
     "./src/infame/nets/notifications/notification.ts",
     "./src/infame/events/character/index.ts",
     "./src/infame/events/character/list.ts",

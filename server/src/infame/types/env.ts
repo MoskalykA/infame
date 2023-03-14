@@ -15,16 +15,23 @@ export interface Env {
     maxCharactersEnabled: boolean;
     maxCharacters: number;
 
-    minHealth: number;
-    minArmor: number;
-
-    defaultModel: number;
-
     save: {
       position: boolean;
       health: boolean;
       armor: boolean;
     };
+  };
+
+  health: {
+    default: number;
+  };
+
+  armor: {
+    default: number;
+  };
+
+  model: {
+    default: number;
   };
 
   weapon: {

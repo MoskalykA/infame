@@ -42,7 +42,7 @@ const selectCharacter = (source: number, characterId: string): void => {
               I consider this code to be heresy but fivem leaves me no choice
           */
 
-          emitNet("infame.nets.characters.setData", source, character.health);
+          emitNet("infame.nets.players.setData", source, character.health);
 
           const playerPed = GetPlayerPed(source.toString());
           SetPedArmour(playerPed, character.armor);
