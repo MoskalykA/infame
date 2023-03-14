@@ -34,7 +34,7 @@ const callback = (source: number, id: string) => {
 
       RemoveAllPedWeapons(playerPed, false);
 
-      env.weapon.default.map((weapon: number) => {
+      env.weapons.default.map((weapon: number) => {
         GiveWeaponToPed(playerPed, weapon, 100, false, false);
       });
     }, 500);

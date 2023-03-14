@@ -35,7 +35,7 @@ export const env: Env = {
     default: 0x94562dd7,
   },
 
-  weapon: {
+  weapons: {
     default: [0x5ef9fec4, 0x624fe830],
   },
 

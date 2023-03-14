@@ -34,7 +34,7 @@ export interface Env {
     default: number;
   };
 
-  weapon: {
+  weapons: {
     default: number[];
   };
 
