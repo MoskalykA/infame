@@ -23,8 +23,6 @@ build({
     "./src/infame/utils/sql.ts",
     "./src/infame/utils/logger.ts",
     "./src/infame/utils/translate.ts",
-    "./src/infame/utils/translate/getFrench.ts",
-    "./src/infame/utils/translate/getEnglish.ts",
     "./src/infame/utils/sql/idToString.ts",
     "./src/infame/types/env.ts",
     "./src/infame/types/language.ts",
