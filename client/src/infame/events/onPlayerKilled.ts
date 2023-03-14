@@ -1,5 +1,5 @@
-import { showWasted } from "@/infame/utils/showWasted";
+import { death } from "@/infame/utils/death";
 
 on("baseevents:onPlayerKilled", () => {
-  showWasted();
+  death();
 });

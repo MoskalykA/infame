@@ -24,6 +24,8 @@ export const env: Env = {
   },
 
   death: {
+    enabled: true,
+
     timeForRespawn: 10_000, // 60 seconds
   },
 };

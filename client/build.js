@@ -15,6 +15,7 @@ build({
     "./src/infame/events/onPlayerKilled",
     "./src/infame/events/onPlayerDied",
     "./src/infame/events/onPlayerWasted.ts",
+    "./src/infame/utils/death.ts",
     "./src/infame/utils/interface.ts",
     "./src/infame/utils/showWasted.ts",
     "./src/infame/utils/addNotification.ts",

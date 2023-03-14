@@ -22,6 +22,8 @@ export interface Env {
   };
 
   death: {
+    enabled: boolean;
+
     timeForRespawn: number;
   };
 }
