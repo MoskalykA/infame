@@ -2,6 +2,7 @@ const { build } = require("esbuild");
 
 build({
   bundle: true,
+  minify: true,
   stdin: { contents: "" },
   inject: [
     "./src/env.ts",

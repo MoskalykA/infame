@@ -3,6 +3,7 @@ const { filelocPlugin } = require("esbuild-plugin-fileloc");
 
 build({
   bundle: true,
+  minify: true,
   stdin: { contents: "" },
   inject: [
     "./src/env.ts",
