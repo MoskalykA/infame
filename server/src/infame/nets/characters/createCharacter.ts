@@ -36,10 +36,9 @@ onNet(
           addNotification(
             src,
             NotificationType.Error,
-            translate("characterLimit", {
-              search: "$$$",
-              replace: env.character.maxCharacters.toString(),
-            }),
+            translate("characterLimit", [
+              env.character.maxCharacters.toString(),
+            ]),
             5000
           );
         } else {
@@ -65,17 +64,10 @@ onNet(
             .then((response) => {
               if (env.log.enabled) {
                 info(
-                  translate(
-                    "newCharacter",
-                    {
-                      search: "$$$",
-                      replace: GetPlayerName(source.toString()),
-                    },
-                    {
-                      search: "$$$$",
-                      replace: response.insertedId.toHexString(),
-                    }
-                  )
+                  translate("newCharacter", [
+                    GetPlayerName(source.toString()),
+                    response.insertedId.toHexString(),
+                  ])
                 );
               }
 

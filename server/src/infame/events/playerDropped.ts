@@ -6,12 +6,7 @@ import { translate } from "@/infame/utils/translate";
 on("playerDropped", () => {
   const src = source;
   if (env.log.enabled) {
-    info(
-      translate("playerDisconnected", {
-        search: "$$$",
-        replace: GetPlayerName(src.toString()),
-      })
-    );
+    info(translate("playerDisconnected", [GetPlayerName(src.toString())]));
   }
 
   const player = Player(src);

@@ -5,24 +5,16 @@ import { getFrench } from "@/infame/utils/translate/getFrench";
 
 export const translate = (
   identifier: string,
-  ...format: {
-    search: string;
-    replace: string;
-  }[]
+  replaces: string[] = []
 ): string => {
-  if (env.language.type === Language.English) {
-    let response = getEnglish()[identifier];
-    format.map((value) => {
-      response = response.replace(value.search, value.replace);
-    });
+  let replace = "$$";
+  let response = (
+    env.language.type === Language.English ? getEnglish() : getFrench()
+  )[identifier];
+  replaces.map((value) => {
+    response = response.replace(replace, value.replace);
+    replace = replace + "$";
+  });
 
-    return response;
-  } else {
-    let response = getFrench()[identifier];
-    format.map((value) => {
-      response = response.replace(value.search, value.replace);
-    });
-
-    return response;
-  }
+  return response;
 };

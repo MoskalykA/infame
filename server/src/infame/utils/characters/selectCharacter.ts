@@ -5,7 +5,7 @@ import { open } from "@/infame/utils/characters/open";
 import { ObjectId } from "mongodb";
 import { env } from "@/env";
 import { info } from "@/infame/utils/logger";
-import { translate } from "../translate";
+import { translate } from "@/infame/utils/translate";
 
 const selectCharacter = (source: number, characterId: string): void => {
   client
@@ -18,17 +18,10 @@ const selectCharacter = (source: number, characterId: string): void => {
       if (character) {
         if (env.log.enabled) {
           info(
-            translate(
-              "playerCharacter",
-              {
-                search: "$$$",
-                replace: GetPlayerName(source.toString()),
-              },
-              {
-                search: "$$$$",
-                replace: characterId,
-              }
-            )
+            translate("playerCharacter", [
+              GetPlayerName(source.toString()),
+              characterId,
+            ])
           );
         }
 

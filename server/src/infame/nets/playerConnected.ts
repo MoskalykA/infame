@@ -6,12 +6,7 @@ import { translate } from "@/infame/utils/translate";
 onNet("infame.nets.playerConnected", () => {
   const src = source;
   if (env.log.enabled) {
-    info(
-      translate("newPlayer", {
-        search: "$$$",
-        replace: GetPlayerName(src.toString()),
-      })
-    );
+    info(translate("newPlayer", [GetPlayerName(src.toString())]));
   }
 
   open(src);

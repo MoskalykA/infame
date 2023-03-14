@@ -56,21 +56,11 @@ on(
                   });
               } else {
                 deferrals.done(
-                  translate(
-                    "banDetails",
-                    {
-                      search: "$$$",
-                      replace: res.reason,
-                    },
-                    {
-                      search: "$$$$",
-                      replace: res.author,
-                    },
-                    {
-                      search: "$$$$$",
-                      replace: new Date(res.time).toLocaleString(),
-                    }
-                  )
+                  translate("banDetails", [
+                    res.reason,
+                    res.author,
+                    new Date(res.time).toLocaleString(),
+                  ])
                 );
 
                 CancelEvent();
@@ -81,12 +71,7 @@ on(
         deferrals.done();
       }
     } else {
-      deferrals.done(
-        translate("noOpenSession", {
-          search: "$$$",
-          replace: env.identifier.name,
-        })
-      );
+      deferrals.done(translate("noOpenSession", [env.identifier.name]));
 
       CancelEvent();
     }
