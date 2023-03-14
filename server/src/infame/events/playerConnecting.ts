@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { client } from "@/infame/utils/sql";
+import { translate } from "@/infame/utils/translate";
 
 on(
   "playerConnecting",
@@ -46,9 +47,7 @@ on(
                     ),
                   })
                   .then(() => {
-                    deferrals.update(
-                      "You have been unbanned, please be careful."
-                    );
+                    deferrals.update(translate("unbannedBeCareful"));
 
                     setTimeout(() => {
                       deferrals.done();
@@ -57,11 +56,21 @@ on(
                   });
               } else {
                 deferrals.done(
-                  `You were banned for ${res.reason} by ${
-                    res.author
-                  } and you will be unbanned on ${new Date(
-                    res.time
-                  ).toLocaleString()}.`
+                  translate(
+                    "banDetails",
+                    {
+                      search: "$$$",
+                      replace: res.reason,
+                    },
+                    {
+                      search: "$$$$",
+                      replace: res.author,
+                    },
+                    {
+                      search: "$$$$$",
+                      replace: new Date(res.time).toLocaleString(),
+                    }
+                  )
                 );
 
                 CancelEvent();
@@ -73,7 +82,10 @@ on(
       }
     } else {
       deferrals.done(
-        `You do not have an open ${env.identifier.name} so you are not able to join the server.`
+        translate("noOpenSession", {
+          search: "$$$",
+          replace: env.identifier.name,
+        })
       );
 
       CancelEvent();

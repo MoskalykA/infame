@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { addNotification } from "@/infame/utils/addNotification";
+import { translate } from "@/infame/utils/translate";
 import { NotificationType } from "@/infame/types/notificationType";
 
 on("onResourceStop", (resourceName: string) => {
@@ -24,7 +25,7 @@ on("onResourceStart", (resourceName: string) => {
         addNotification(
           Number(source),
           NotificationType.Success,
-          "The infame game mode was reloaded",
+          translate("infameGameModeReloaded"),
           5000
         );
 
@@ -34,7 +35,7 @@ on("onResourceStart", (resourceName: string) => {
           addNotification(
             Number(source),
             NotificationType.Success,
-            "You will have to choose your character again",
+            translate("reselectCharacter"),
             5000
           );
         }

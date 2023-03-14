@@ -5,6 +5,7 @@ import { open } from "@/infame/utils/characters/open";
 import { ObjectId } from "mongodb";
 import { env } from "@/env";
 import { info } from "@/infame/utils/logger";
+import { translate } from "../translate";
 
 const selectCharacter = (source: number, characterId: string): void => {
   client
@@ -17,16 +18,24 @@ const selectCharacter = (source: number, characterId: string): void => {
       if (character) {
         if (env.log.enabled) {
           info(
-            `${GetPlayerName(
-              source.toString()
-            )} has just chosen a character (${characterId})`
+            translate(
+              "playerCharacter",
+              {
+                search: "$$$",
+                replace: GetPlayerName(source.toString()),
+              },
+              {
+                search: "$$$$",
+                replace: characterId,
+              }
+            )
           );
         }
 
         addNotification(
           source,
           NotificationType.Success,
-          "You have successfully selected a character",
+          translate("selectedCharacter"),
           5000
         );
 
@@ -65,7 +74,7 @@ const selectCharacter = (source: number, characterId: string): void => {
         addNotification(
           source,
           NotificationType.Error,
-          "This character does not exist",
+          translate("invalidCharacter"),
           5000
         );
 
@@ -76,7 +85,7 @@ const selectCharacter = (source: number, characterId: string): void => {
       addNotification(
         source,
         NotificationType.Error,
-        "It is impossible to do this",
+        translate("impossibleAction"),
         5000
       );
 

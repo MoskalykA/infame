@@ -1,4 +1,10 @@
+import { Language } from "@/infame/types/language";
+
 export interface Env {
+  language: {
+    type: Language;
+  };
+
   identifier: {
     name: string;
   };

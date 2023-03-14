@@ -1,6 +1,7 @@
 import { NotificationType } from "@/infame/types/notificationType";
 import { addNotification } from "@/infame/utils/addNotification";
 import { selectCharacter } from "@/infame/utils/characters/selectCharacter";
+import { translate } from "@/infame/utils/translate";
 
 onNet("infame.nets.characters.selectCharacter", (id: string) => {
   const src = source;
@@ -9,7 +10,7 @@ onNet("infame.nets.characters.selectCharacter", (id: string) => {
     addNotification(
       src,
       NotificationType.Error,
-      "You already have a character",
+      translate("youAlreadyHaveCharacter"),
       5000
     );
 

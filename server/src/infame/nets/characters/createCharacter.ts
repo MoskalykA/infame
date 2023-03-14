@@ -4,6 +4,7 @@ import { addNotification } from "@/infame/utils/addNotification";
 import { selectCharacter } from "@/infame/utils/characters/selectCharacter";
 import { info } from "@/infame/utils/logger";
 import { client } from "@/infame/utils/sql";
+import { translate } from "@/infame/utils/translate";
 
 onNet(
   "infame.nets.characters.createCharacter",
@@ -14,7 +15,7 @@ onNet(
       addNotification(
         src,
         NotificationType.Error,
-        "You already have a character",
+        translate("youAlreadyHaveCharacter"),
         5000
       );
 
@@ -35,7 +36,10 @@ onNet(
           addNotification(
             src,
             NotificationType.Error,
-            `The character limit is ${env.character.maxCharacters}, you cannot have a new character`,
+            translate("characterLimit", {
+              search: "$$$",
+              replace: env.character.maxCharacters.toString(),
+            }),
             5000
           );
         } else {
@@ -61,9 +65,17 @@ onNet(
             .then((response) => {
               if (env.log.enabled) {
                 info(
-                  `${GetPlayerName(
-                    source.toString()
-                  )} has just created a character (${response.insertedId.toHexString()})`
+                  translate(
+                    "newCharacter",
+                    {
+                      search: "$$$",
+                      replace: GetPlayerName(source.toString()),
+                    },
+                    {
+                      search: "$$$$",
+                      replace: response.insertedId.toHexString(),
+                    }
+                  )
                 );
               }
 
@@ -72,7 +84,7 @@ onNet(
               addNotification(
                 src,
                 NotificationType.Success,
-                "Your character was created with success",
+                translate("yourCharacterCreatedWithSuccess"),
                 5000
               );
             });

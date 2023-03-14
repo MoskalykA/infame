@@ -1,11 +1,17 @@
 import { env } from "@/env";
 import { saveCharacter } from "@/infame/utils/characters/saveCharacter";
 import { info } from "@/infame/utils/logger";
+import { translate } from "@/infame/utils/translate";
 
 on("playerDropped", () => {
   const src = source;
   if (env.log.enabled) {
-    info(`${GetPlayerName(src.toString())} has just disconnected`);
+    info(
+      translate("playerDisconnected", {
+        search: "$$$",
+        replace: GetPlayerName(src.toString()),
+      })
+    );
   }
 
   const player = Player(src);

@@ -1,6 +1,11 @@
 import { Env } from "@/infame/types/env";
+import { Language } from "@/infame/types/language";
 
 export const env: Env = {
+  language: {
+    type: Language.French,
+  },
+
   identifier: {
     name: "discord",
   },

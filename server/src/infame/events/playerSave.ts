@@ -1,6 +1,7 @@
 import { env } from "@/env";
 import { saveCharacter } from "@/infame/utils/characters/saveCharacter";
 import { info } from "@/infame/utils/logger";
+import { translate } from "@/infame/utils/translate";
 
 if (env.character.enabled) {
   setInterval(() => {
@@ -11,7 +12,7 @@ if (env.character.enabled) {
       }
 
       if (env.log.enabled) {
-        info("All the characters were saved");
+        info(translate("charactersSaved"));
       }
     });
   }, env.saveTime);
