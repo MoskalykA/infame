@@ -12,7 +12,7 @@ export const translate = (
     env.language.type === Language.English ? getEnglish() : getFrench()
   )[identifier];
   replaces.map((value) => {
-    response = response.replace(replace, value.replace);
+    response = response.replace(replace, value);
     replace = replace + "$";
   });
 
