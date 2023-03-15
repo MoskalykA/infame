@@ -3,13 +3,13 @@
     "build": "node build.js"
   },
   "devDependencies": {
-    "@citizenfx/server": "2.0.6286-1",
+    "@citizenfx/server": "2.0.6335-1",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "esbuild": "0.17.10",
+    "esbuild": "0.17.11",
     "esbuild-plugin-fileloc": "^0.0.6",
-    "mongodb": "5.1",
+    "mongodb": "5.1.0",
     "tslog": "^4.8.2"
   }
 }
