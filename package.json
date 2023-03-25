@@ -4,11 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd server && pnpm run build && cd .. && cd client && pnpm run build"
+    "build": "node build.js"
   },
   "keywords": [],
   "author": "MoskalykA",
   "license": "MIT",
+  "devDependencies": {
+    "@citizenfx/client": "2.0.6335-1",
+    "@citizenfx/server": "2.0.6335-1",
+    "esbuild": "^0.17.13",
+    "esbuild-plugin-fileloc": "^0.0.6",
+    "tslog": "^4.8.2",
+    "typescript": "5.0.2"
+  },
   "dependencies": {
     "mongodb": "^5.1.0"
   }

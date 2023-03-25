@@ -14,7 +14,6 @@
 
 # Death system:
 
-- Rethink the system a bit to get away from the initalization system
 - Have a death menu in NUI
 - A consequence with the character system
 
@@ -24,3 +23,4 @@
 - Blip system
 - Language system (clientside)
 - Be able to manage the population of the game
+- Production system in Rust (to be able to choose your language and other things then to have a personalized compilation with the required files)

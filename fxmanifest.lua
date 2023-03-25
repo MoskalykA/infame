@@ -5,8 +5,8 @@ author 'MoskalykA'
 description 'New framework for FiveM'
 version '0.0.1'
 
-client_script 'client/build/bundle.js'
-server_script 'server/build/bundle.js'
+client_script 'build/client.js'
+server_script 'build/server.js'
 
 -- files {
 --     'interface/dist/index.html',
