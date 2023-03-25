@@ -19,4 +19,6 @@ export const language: Record<string, string> = {
 
   unbannedBeCareful: "You have been unbanned, please be careful.",
   banDetails: "You were banned for $$ by $$$ and you will be unbanned on $$$$",
+
+  hospitalNotification: "You have been transported to the hospital",
 };
