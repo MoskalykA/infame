@@ -76,7 +76,6 @@ build({
     "./src/client/events/characters/create.ts",
     "./src/client/events/characters/index.ts",
     "./src/client/events/characters/list.ts",
-    "./src/client/events/players/onDeath.ts",
     "./src/client/events/onPlayerKilled",
     "./src/client/events/onPlayerDied",
     "./src/client/events/onPlayerWasted.ts",

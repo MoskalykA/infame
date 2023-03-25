@@ -1,3 +1,3 @@
-import { onDeath } from "client/events/players/onDeath";
+import { showWasted } from "client/utils/showWasted";
 
-on("baseevents:onPlayerKilled", onDeath);
+on("baseevents:onPlayerKilled", showWasted);
