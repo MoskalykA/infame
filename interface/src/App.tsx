@@ -1,6 +1,6 @@
 import { toast, Toaster } from "react-hot-toast";
 import { NotificationType } from "@/types/notificationType";
-import Visibility from "@/components/Visibility";
+import Visibility from "@/components/visibility";
 import IndexCharacter from "@/pages/Character/Index";
 import ListCharacter from "@/pages/Character/List";
 import CreateCharacter from "@/pages/Character/Create";
