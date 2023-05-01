@@ -65,7 +65,7 @@ onNet(
               if (env.log.enabled) {
                 info(
                   translate("newCharacter", [
-                    GetPlayerName(source.toString()),
+                    GetPlayerName(src.toString()),
                     response.insertedId.toHexString(),
                   ])
                 );
